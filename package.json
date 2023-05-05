@@ -1,0 +1,25 @@
+{
+  "name": "exeat_sys",
+  "version": "1.0.0",
+  "description": "a system to keep track of exeat in shs and also send sms notifications to parents",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andoh-Jeffery/exeat_sys.git"
+  },
+  "author": "Andoh Jeffery",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andoh-Jeffery/exeat_sys/issues"
+  },
+  "homepage": "https://github.com/Andoh-Jeffery/exeat_sys#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.7.0",
+    "nodemon": "^2.0.22"
+  }
+}
