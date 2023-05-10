@@ -42,11 +42,8 @@ router.post('/issue_exeat',async(req,res)=>{
         }).then(response=>response.json())
         .then(result=>console.log(result))
         .catch(error=>console.log('error',error))
-        // await db.collection('exeat').doc.set(req.body)
+        await db.collection('exeat').doc.set(req.body)
         res.status(200).send('exeat issued')
-        console.log(req.body.studentName);
-        console.log(req.body.parentTel);
-        console.log(req.body.message);
     } catch (error) {
         console.log(error);
     }
