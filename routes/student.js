@@ -4,6 +4,16 @@ const FormData=require('form-data')
 const fetch=require('node-fetch')
 const router=express.Router()
 
+router.post('/create',async(req,res)=>{
+    // const data=req.body;
+    try {
+        console.log(await req.body);
+        res.status(201).send('got data')
+        
+    } catch (error) {
+        console.log(error);
+    }
+})
 router.get('/',async(req,res)=>{
     try {
         const studentDetails=db.collection('student')
@@ -30,8 +40,8 @@ router.post('/issue_exeat',async(req,res)=>{
     try {
         const {studentName,reason,d_o_i,d_o_r,message,parentTel}=req.body
         formdata.append("from","KWGH");
-        formdata.append("to",req.body.parentTel);
-        formdata.append("msg",req.body.message);
+        formdata.append("to",parentTel);
+        formdata.append("msg",message);
         fetch("https://api.giantsms.com/api/v1/send",{
             method:"POST",
             headers:{
@@ -42,7 +52,7 @@ router.post('/issue_exeat',async(req,res)=>{
         }).then(response=>response.json())
         .then(result=>console.log(result))
         .catch(error=>console.log('error',error))
-        await db.collection('exeat').doc.set(req.body)
+        await db.collection('exeat').doc().set(req.body)
         res.status(200).send('exeat issued')
     } catch (error) {
         console.log(error);

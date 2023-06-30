@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <title>Exeat | Login</title>
+
+
+    <!--[if lt IE 11]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Codedthemes" />
+
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<div class="auth-wrapper">
+    <div class="auth-content text-center">
+        <img src="./images/logo.png" alt="" class="img-fluid mb-4">
+        <div class="card borderless">
+            <div class="row align-items-center ">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <h4 class="mb-3 f-w-400">Signin</h4>
+                        <hr>
+                        <form action="" id="login-form">
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" id="Email" placeholder="Email address"
+                                    name="email">
+                            </div>
+                            <div class="form-group mb-4">
+                                <input type="password" class="form-control" id="Password" placeholder="Password"
+                                    name="password">
+                            </div>
+                            <div class="custom-control custom-checkbox text-left mb-4 mt-2">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Save credentials.</label>
+                            </div>
+                            <button class="btn btn-block btn-primary mb-4">Signin</button>
+                        </form>
+
+                        <hr>
+                        <p class="mb-2 text-muted">Forgot password? <a href="auth-reset-password.html"
+                                class="f-w-400">Reset</a></p>
+                        <p class="mb-0 text-muted">Don’t have an account? <a href="auth-signup.html"
+                                class="f-w-400">Signup</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="./js/vendor-all.min.js"></script>
+<script src="./js/plugins/bootstrap.min.js"></script>
+<script src="./js/pcoded.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>(function () { var js = "window['__CF$cv$params']={r:'75bc31dc0bc8b8c4',m:'D6mELQePlVdPAfvrCw6vtLh8lt4c76xvzfD.6Qk9NVc-1666042848-0-ARW3iFUq3cEacuusRQjf7dNjk5R2Alxdw9SFWIxzYxMD+2g6DLWEse/Cx3Tac5qrxWwJb5opMKAJiDFYN8VYcsgho/z2grGCzj18rovzZMx8SXPCAqm0y4O8TOPENp48YmBLUJeD2hK4TFmhFYHXkvy7GDQ2jnkNWbyO6mhvM7eDLAs1zYNQcvBWsDscNGPFEPBmphaiELX72c04knB8z9g=',s:[0x80a93e89ca,0x45b7218a4d],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../../../../../cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible5615.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);"; var _0xh = document.createElement('iframe'); _0xh.height = 1; _0xh.width = 1; _0xh.style.position = 'absolute'; _0xh.style.top = 0; _0xh.style.left = 0; _0xh.style.border = 'none'; _0xh.style.visibility = 'hidden'; document.body.appendChild(_0xh); function handler() { var _0xi = _0xh.contentDocument || _0xh.contentWindow.document; if (_0xi) { var _0xj = _0xi.createElement('script'); _0xj.nonce = ''; _0xj.innerHTML = js; _0xi.getElementsByTagName('head')[0].appendChild(_0xj); } } if (document.readyState !== 'loading') { handler(); } else if (window.addEventListener) { document.addEventListener('DOMContentLoaded', handler); } else { var prev = document.onreadystatechange || function () { }; document.onreadystatechange = function (e) { prev(e); if (document.readyState !== 'loading') { document.onreadystatechange = prev; handler(); } }; } })();</script>
+</body>
+
+<!-- my script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var login_form = document.getElementById('login-form')
+    login_form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const formData=new FormData()
+        const email = document.getElementById('Email').value
+        const password = document.getElementById('Password').value
+        
+        formData.append('email',email)
+        formData.append('password',password)
+        fetch('/login', {
+            method: "POST",
+            body: formData,
+        }).then((response) => { response.json() })
+            .then((data) => {
+                Swal.fire(
+                    'Success',
+                    'successfully login',
+                    'success'
+                );
+            }).catch(error => {
+                Swal.fire(
+                    '🥱',
+                    'Wrong Credentials',
+                    'danger'
+                );
+            })
+        });
+});
+
+</script>
+
+</html>
