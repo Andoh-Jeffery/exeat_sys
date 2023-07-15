@@ -58,12 +58,19 @@ app.get('/', (req, res) => {
 })
 // 
 // GET REQUEST TO /DASHBOARD
-app.get('/dashboard', isAuth, (req, res) => {
+app.get('/dashboard', (req, res) => {
     // res.render('dashboard')
-    if (req.session.isAuthorize == 1) {
-        res.json("1")
-    }
-    else { res.json("2") }
+    // if (req.session.isAuthorize == 1) {
+    //     res.json("1")
+    // }
+    // else { res.json("2") }
+    res.status(200).render('dashboard')
+})
+app.get('/view',(req,res)=>{
+    res.status(200).render('view_students')
+})
+app.get('/add',(req,res)=>{
+    res.status(200).render('addStudent')
 })
 // LOGIN
 
