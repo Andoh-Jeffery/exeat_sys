@@ -10499,7 +10499,7 @@ a.text-dark:hover, a.text-dark:focus {
   h3 {
         page-break-after: avoid;
     }
-  @    page {
+  @page {
         size: a3;
     }
 
@@ -24128,15 +24128,15 @@ pre[class*=language-]:before {
     z-index: 1028;
 }
 
-.menu-styler .style-toggler > a {
+/* .menu-styler .style-toggler > a {
     position: fixed;
     right: 0;
     top: 250px;
     z-index: 1031;
     transition: 0.3s ease-in-out;
-}
+} */
 
-.menu-styler .style-toggler > a:before {
+/* .menu-styler .style-toggler > a:before {
     content: "";
     width: 60px;
     height: 60px;
@@ -24148,9 +24148,9 @@ pre[class*=language-]:before {
     transition: 0.3s ease-in-out;
     border-radius: 4px 0 0 4px;
     box-shadow: 0 0 0 2px #0073aa;
-}
+} */
 
-.menu-styler .style-toggler > a:after {
+/* .menu-styler .style-toggler > a:after {
     content: "\e8c3";
     top: 14px;
     font-size: 30px;
@@ -24163,7 +24163,7 @@ pre[class*=language-]:before {
     animation: mymove 1.3s infinite linear;
     color: #fff;
     transition: 0.3s ease-in-out;
-}
+} */
 
 @media all and (-ms-high-contrast: none) {
     .menu-styler .style-toggler > a:after {
