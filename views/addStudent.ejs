@@ -29,7 +29,7 @@
                 <button class="btn btn-secondary" style="float: right;">Upload Students</button>
               </div>
               <div class="card-body">
-                <form id="addStudentForm">
+                <form id="addStudentForm" method="post">
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="form-group">
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="form-group">
-                        <label class="floating-label" for="password"
+                        <label class="floating-label"
                           >Last Name</label
                         >
                         <input
@@ -97,13 +97,13 @@
                     </div>
                     <div class="col-sm-4">
                       <div class="form-group">
-                        <label class="floating-label" for="password"
+                        <label class="floating-label"
                           >Parent Telephone</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="parentTelelphone"
+                          id="parentTelephone"
                           placeholder="parent tel"
                         />
                       </div>
@@ -170,5 +170,54 @@
     <![endif]-->
 
     <%-include('../partials/scripts.ejs')-%>
+    <script>
+      var formData=new FormData()
+      document.getElementById('addStudentForm').addEventListener('submit',(e)=>{
+        e.preventDefault()
+        const firstName=document.getElementById('firstName').value
+        const middleName=document.getElementById('middleName').value
+        const lastName=document.getElementById('lastName').value
+        const course=document.getElementById('course').value
+        const house=document.getElementById('house').value
+        const parentTelephone=document.getElementById('parentTelephone').value
+        
+        // formData.append('firstName',firstName)
+        // formData.append('middleName',middleName)
+        // formData.append('lastName',lastName)
+        // formData.append('course',course)
+        // formData.append('house',house)
+        // formData.append('parentTelephone',parentTelephone)
+        const studentData={
+          firstName:firstName,
+          middleName:middleName,
+          lastName:lastName,
+          course:course,
+          house:house,
+          parentTelephone:parentTelephone
+        }
+        console.log(firstName,middleName,lastName,course,house,parentTelephone)
+        fetch('/student/add',{
+                method:'post',
+                "headers":{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(studentData)
+            }).then((response)=>{response.json()}).then((finalres)=>{
+                Swal.fire(
+                    'Success',
+                    'Student added successfully',
+                    'success'
+                );
+    
+            }).catch((error)=>{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href="">Why do I have this issue?</a>'
+                })
+            })
+        })
+    </script>
   </body>
 </html>
