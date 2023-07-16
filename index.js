@@ -64,13 +64,7 @@ app.get('/dashboard', (req, res) => {
     //     res.json("1")
     // }
     // else { res.json("2") }
-    res.status(200).render('dashboard')
-})
-app.get('/view',(req,res)=>{
-    res.status(200).render('view_students')
-})
-app.get('/add',(req,res)=>{
-    res.status(200).render('addStudent')
+    res.status(200).render('dashboard',{title:'dashboard'})
 })
 // LOGIN
 

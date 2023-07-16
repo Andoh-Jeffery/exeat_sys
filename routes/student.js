@@ -16,23 +16,47 @@ router.post('/create',async(req,res)=>{
 })
 router.get('/',async(req,res)=>{
     try {
-        const studentDetails=db.collection('student')
-        await studentDetails.get() 
-        res.send("student data yet to come")
+        const studentDetails=await db.collection('student').get()
+        res.status(200).render('view_students',{title:'students',students:studentDetails})
     } catch (error) {
         console.log(error);
     }
 })
 
-router.post('/add_student',async(req,res)=>{
+router.get('/add',(req,res)=>{
     try {
-        const {studentName,studentClass,studentHouse,studentParentTel}=req.body
+        res.status(200).render('addStudent',{title:'add student'})
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+router.get('/issued',(req,res)=>{
+    try {
+        res.status(200).render('viewIssuedExeat',{title:'issued exeat'})
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.post('/add',async(req,res)=>{
+    try {
+        const {firstName,middleName,lastName,house,course,parentTelephone}=req.body
         await db.collection('student').doc().set(req.body)
-        res.status(200).send('student added')
+        res.status(201).json('student added')
     } catch (error) {
         console.log(error);
     }
    
+})
+router.get('/issue/:id',async(req,res)=>{
+    const id=req.params.id
+    try {
+        const issue=await db.collection('student').doc(id).get()
+        // const issueData=issue.data()
+        res.status(200).render('issue_exeat',{title:'issue exeat',exeat:issue.data()})
+    } catch (error) {
+        console.log(error);
+    }
 })
 router.post('/issue_exeat',async(req,res)=>{
     var formdata=new FormData();
