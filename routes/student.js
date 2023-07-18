@@ -34,9 +34,19 @@ router.get('/add',async(req,res)=>{
     }
 })
 
-router.get('/issued',(req,res)=>{
+router.get('/issued',async(req,res)=>{
     try {
-        res.status(200).render('viewIssuedExeat',{title:'issued exeat'})
+        const issued=await db.collection('exeat').where('hasReturn','==',false).get()
+        res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment})
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.put('/issued/:id',async(req,res)=>{
+    const id=req.params.id
+    try {
+        await db.collection('exeat').doc(id).update({hasReturn:true})
+        res.status(201)
     } catch (error) {
         console.log(error);
     }
@@ -65,7 +75,7 @@ router.post('/issue_exeat',async(req,res)=>{
     var formdata=new FormData();
     
     try {
-        const {studentName,dateOfIssue,dateOfReturn,parentTelephone,reason}=req.body
+        const {studentName,dateOfIssue,dateOfReturn,parentTelephone,reason,isOnExeat}=req.body
         const issuedDate=moment(dateOfIssue).format('LL')
         const returnDate=moment(dateOfReturn).format('LL')
         const message = `Dear parent, your ward ${studentName} is on exeat and is comining home for ${reason}. This exeat was issued on ${issuedDate} and your ward is suppossed to return on ${returnDate}. Thank You.`
