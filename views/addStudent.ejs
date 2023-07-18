@@ -41,6 +41,7 @@
                           class="form-control"
                           id="firstName"
                           placeholder="first name"
+                          required
                         />
                       </div>
                     </div>
@@ -67,6 +68,7 @@
                           class="form-control"
                           id="lastName"
                           placeholder="last name"
+                          required
                         />
                       </div>
                     </div>
@@ -75,24 +77,33 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="form-group">
-                        <label class="floating-label" for="Email">Couse</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="course"
-                          placeholder="course"
-                        />
+                        <label class="floating-label" for="Email">Course</label>
+                        <select 
+                        name="course"
+                        class="form-control"
+                        id="course"
+                        aria-placeholder="Choose a course...">
+                        <option value="" >Choose a course</option>
+                        <%course.forEach(course=>{%>
+                          <option value="<%=course.data().title%>"><%=course.data().title%></option>
+                        <%})%>
+                        </select>
+                          
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <div class="form-group">
                         <label class="floating-label" for="Text">House</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="house"
-                          placeholder="house"
-                        />
+                        <select 
+                        name="house"
+                        class="form-control"
+                        id="house">
+                        <option value="">Choose House</option>
+                        <%house.forEach(house=>{%>
+                          <option value="<%=house.data().name%>"><%=house.data().name%></option>
+                        <%})%>
+                      </select>
+                          
                       </div>
                     </div>
                     <div class="col-sm-4">
@@ -105,6 +116,7 @@
                           class="form-control"
                           id="parentTelephone"
                           placeholder="parent tel"
+                          required
                         />
                       </div>
                     </div>
@@ -177,8 +189,8 @@
         const firstName=document.getElementById('firstName').value
         const middleName=document.getElementById('middleName').value
         const lastName=document.getElementById('lastName').value
-        const course=document.getElementById('course').value
-        const house=document.getElementById('house').value
+        const course=document.querySelector('#course').value
+        const house=document.querySelector('#house').value
         const parentTelephone=document.getElementById('parentTelephone').value
         
         // formData.append('firstName',firstName)

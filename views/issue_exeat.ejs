@@ -29,7 +29,7 @@
                 <!-- <button class="btn btn-secondary" style="float: right;">Upload Students</button> -->
               </div>
               <div class="card-body">
-                <form id="addStudentForm">
+                <form id="issueExeatForm">
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="form-group">
@@ -39,34 +39,32 @@
                         <input
                           type="text"
                           class="form-control"
-                          id="firstName"
+                          id="studentName"
                           value="<%=exeat.firstName%> <%=exeat.lastName%>"
                         />
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <div class="form-group">
-                        <label class="floating-label" for="Text"
-                          >Reason</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="middleName"
-                          placeholder="middle name"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label class="floating-label" for="password"
+                        <label class="floating-label" for="dateOfIssue"
                           >Date of Issue</label
                         >
                         <input
                           type="date"
                           class="form-control"
-                          id="lastName"
-                          placeholder="last name"
+                          id="dateOfIssue"
+                          placeholder="Date Of Issue"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label class="floating-label" for="Email">Date of Return</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="dateOfReturn"
+                          placeholder="Date Of Return"
                         />
                       </div>
                     </div>
@@ -75,43 +73,33 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <div class="form-group">
-                        <label class="floating-label" for="Email">Date of Return</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="course"
-                          placeholder="course"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label class="floating-label" for="Text">Message</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="house"
-                          placeholder="house"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
                         <label class="floating-label" for="password"
                           >Parent Telephone</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="parentTelelphone"
+                          id="parentTelephone"
                           value="<%=exeat.parentTelephone%>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-8">
+                      <div class="form-group">
+                        <label class="floating-label" for="Text"
+                          >Reason</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="reason"
+                          placeholder="reason"
                         />
                       </div>
                     </div>
                   </div>
                   <input
                     type="submit"
-                    value="Save"
+                    value="Issue"
                     class="btn btn-primary w-100"
                   />
                 </form>
@@ -170,5 +158,45 @@
     <![endif]-->
 
     <%-include('../partials/scripts.ejs')-%>
+    <script>
+      document.getElementById('issueExeatForm').addEventListener('submit',(e)=>{
+        e.preventDefault()
+        const studentName=document.getElementById('studentName').value
+        const dateOfIssue=document.getElementById('dateOfIssue').value
+        const dateOfReturn=document.getElementById('dateOfReturn').value
+        const parentTelephone=document.getElementById('parentTelephone').value
+        const reason=document.getElementById('reason').value
+        console.log(studentName,dateOfIssue,dateOfReturn,parentTelephone,reason)
+
+        const exeatData={
+          studentName:studentName,
+          dateOfIssue:dateOfIssue,
+          dateOfReturn:dateOfReturn,
+          parentTelephone:parentTelephone,
+          reason:reason
+        }
+        fetch('/student/issue_exeat',{
+                method:'post',
+                "headers":{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(exeatData)
+            }).then((response)=>{response.json()}).then((finalres)=>{
+                Swal.fire(
+                    'Success',
+                    'Exeat issued successfully',
+                    'success'
+                );
+    
+            }).catch((error)=>{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href="">Why do I have this issue?</a>'
+                })
+            })
+      })
+    </script>
   </body>
 </html>
