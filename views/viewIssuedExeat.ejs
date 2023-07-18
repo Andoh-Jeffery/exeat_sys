@@ -39,32 +39,37 @@
                   >
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>Student Name</th>
+                        <th>Reason</th>
+                        <th>Date Of Issue</th>
+                        <th>Date Of Return</th>
+                        <th>Parent Telephone</th>
+                        <th>Returned</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Quinn Flynn</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                      </tr>
+                      <%issuedExeat.forEach(exeat=>{%>
+                        
+                        <tr>
+                          <td><%=exeat.data().studentName%></td>
+                          <td><%=exeat.data().reason%></td>
+                          <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
+                          <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
+                          <td><%=exeat.data().parentTelephone%></td>
+                          <td>
+                            <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
+                          </td>
+                        </tr>
+                      <%})%>
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>Student Name</th>
+                        <th>Reason</th>
+                        <th>Date Of Issue</th>
+                        <th>Date Of Return</th>
+                        <th>Parent Telephone</th>
+                        <th>Returned</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -122,6 +127,28 @@
         <p>Sorry for the inconvenience!</p>
       </div>
     <![endif]-->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+                            let check_btn = document.querySelectorAll('.check_btn');
+                            for (let i = 0; i < check_btn.length; i++) {
+                                const element = check_btn[i];
+                                element.addEventListener('click', (e) => {
+                                    e.preventDefault()
+                                    console.log('/student/issued/'+ element.dataset.id)
+                                    fetch('/student/issued/'+ element.dataset.id,{
+                                        method:"put",
+                                    }).then((response)=>response.json())
+                                    .then((updateResponse)=>{
+                                        console.log('updated');
+                                        document.location.reload();
+                                }).catch(error=>{
+                                    console.log(error);
+                                })
+                                })
+
+                            }
+      });
+    </script>
   </body>
   <%-include('../partials/scripts.ejs')-%>
 </html>
