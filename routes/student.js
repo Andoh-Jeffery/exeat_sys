@@ -1,5 +1,6 @@
 const express=require('express')
 const db=require('../config/db')
+const moment=require('moment')
 const FormData=require('form-data')
 const fetch=require('node-fetch')
 const router=express.Router()
@@ -23,9 +24,11 @@ router.get('/',async(req,res)=>{
     }
 })
 
-router.get('/add',(req,res)=>{
+router.get('/add',async(req,res)=>{
     try {
-        res.status(200).render('addStudent',{title:'add student'})
+        const courses=await db.collection('course').get()
+        const houses=await db.collection('house').get()
+        res.status(200).render('addStudent',{title:'add student',course:courses,house:houses})
     } catch (error) {
         console.log(error);
     }
@@ -62,9 +65,12 @@ router.post('/issue_exeat',async(req,res)=>{
     var formdata=new FormData();
     
     try {
-        const {studentName,reason,d_o_i,d_o_r,message,parentTel}=req.body
+        const {studentName,dateOfIssue,dateOfReturn,parentTelephone,reason}=req.body
+        const issuedDate=moment(dateOfIssue).format('LL')
+        const returnDate=moment(dateOfReturn).format('LL')
+        const message = `Dear parent, your ward ${studentName} is on exeat and is comining home for ${reason}. This exeat was issued on ${issuedDate} and your ward is suppossed to return on ${returnDate}. Thank You.`
         formdata.append("from","KWGH");
-        formdata.append("to",parentTel);
+        formdata.append("to",parentTelephone);
         formdata.append("msg",message);
         fetch("https://api.giantsms.com/api/v1/send",{
             method:"POST",
@@ -77,7 +83,7 @@ router.post('/issue_exeat',async(req,res)=>{
         .then(result=>console.log(result))
         .catch(error=>console.log('error',error))
         await db.collection('exeat').doc().set(req.body)
-        res.status(200).send('exeat issued')
+        res.status(200).json('exeat issued')
     } catch (error) {
         console.log(error);
     }
