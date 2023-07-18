@@ -25,6 +25,7 @@
     "firebase-admin": "^11.7.0",
     "firestore-store": "^2.0.2",
     "form-data": "^4.0.0",
+    "moment": "^2.29.4",
     "node-fetch": "^2.6.9",
     "nodemon": "^2.0.22"
   }
