@@ -11,14 +11,6 @@ const firestoreStore = require('firestore-store')
 const { log } = require('console')
 const app = express()
 
-app.set("view engine", "ejs");
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname,"./public")))
-app.use('/student', student)
-app.use('/teacher', teacher)
-
-// SESSION
 const store = new FireStoreStore({
     database: db,
     collection: "session",
@@ -31,6 +23,14 @@ app.use(
         store: store
     })
 );
+app.set("view engine", "ejs");
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname,"./public")))
+app.use('/student', student)
+app.use('/teacher', teacher)
+
+// SESSION
 
 
 // MIDDLEWARE
@@ -38,18 +38,20 @@ const isAuth = (req, res, next) => {
     if (req.session.isAuth) {
         next()
     }
-    // else{
-    //     // res.redirect('/login')
-    // }
+    else{
+        // res.redirect('/login')
+    }
 }
 
-// const isAuthorize=(req,res,next)=>{
-//     if(req.session.isAuthorize==="1"){
-//         console.log("this is for house one");
-//     }else if(req.session.isAuthorize==="2"){
-//         console.log("this is for house two");
-//     }else{console.log("not Authorize");}
-// }
+const isAuthorize=(req,res,next)=>{
+    if(req.session.isAuthorize==="1"){
+        console.log("this is for house one");
+        next()
+    }else if(req.session.isAuthorize==="2"){
+        console.log("this is for house two");
+        next()
+    }else{console.log("not Authorize");}
+}
 
 // GET REQUEST TO /
 app.get('/', (req, res) => {
@@ -58,12 +60,7 @@ app.get('/', (req, res) => {
 })
 // 
 // GET REQUEST TO /DASHBOARD
-app.get('/dashboard', (req, res) => {
-    // res.render('dashboard')
-    // if (req.session.isAuthorize == 1) {
-    //     res.json("1")
-    // }
-    // else { res.json("2") }
+app.get('/dashboard', isAuth,isAuthorize,(req, res) => {
     res.status(200).render('dashboard',{title:'dashboard'})
 })
 // LOGIN
@@ -73,22 +70,22 @@ app.post('/login', async (req, res) => {
     try {
         console.log(email,password);
         const teacher = await db.collection('teacher').where('email', '==', email).get()
-
         if (!teacher.empty) {
             console.log("yes");
             teacher.forEach(async (teacher) => {
                 const isMatch = await bcrypt.compare(password, teacher.data().password)
-                if (isMatch) {
-                    console.log("matched");
+                if (!isMatch) {
+                    // console.log("matched");
                     // console.log(teacher.data().house);
                     // console.log(tea.data().email);
-                    req.session.isAuth = true
-                    req.session.isAuthorize = teacher.data().house
-                    res.redirect('dashboard')
-                }
-                else {
+                    // req.session.isAuth = true
+                    // req.session.isAuthorize = teacher.data().house
+                    // return res.redirect('/dashboard')
                     console.log("no match");
                 }
+                req.session.isAuth = true;
+                req.session.isAuthorize = teacher.data().house;
+                return res.redirect('/dashboard')
             })
         }
         else {

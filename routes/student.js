@@ -1,5 +1,6 @@
 const express=require('express')
 const db=require('../config/db')
+const session = require('express-session')
 const moment=require('moment')
 const FormData=require('form-data')
 const fetch=require('node-fetch')
@@ -16,14 +17,14 @@ router.post('/create',async(req,res)=>{
     }
 })
 router.get('/',async(req,res)=>{
+    console.log(req.session.isAuthorize);
     try {
-        const studentDetails=await db.collection('student').get()
+        const studentDetails=await db.collection('student').where("house","==",req.session.isAuthorize).get()
         res.status(200).render('view_students',{title:'students',students:studentDetails})
     } catch (error) {
         console.log(error);
     }
 })
-
 router.get('/add',async(req,res)=>{
     try {
         const courses=await db.collection('course').get()
@@ -33,7 +34,6 @@ router.get('/add',async(req,res)=>{
         console.log(error);
     }
 })
-
 router.get('/issued',async(req,res)=>{
     try {
         const issued=await db.collection('exeat').where('hasReturn','==',false).get()

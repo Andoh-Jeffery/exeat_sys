@@ -32,14 +32,14 @@
                     <div class="card-body">
                         <h4 class="mb-3 f-w-400">Signin</h4>
                         <hr>
-                        <form action="" id="login-form">
+                        <form action="/login" id="login-form" method="post">
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" id="Email" placeholder="Email address"
-                                    name="email">
+                                <input type="text" class="form-control" id="email" placeholder="Email address"
+                                    name="email" required>
                             </div>
                             <div class="form-group mb-4">
-                                <input type="password" class="form-control" id="Password" placeholder="Password"
-                                    name="password">
+                                <input type="password" class="form-control" id="password" placeholder="Password"
+                                    name="password" required>
                             </div>
                             <div class="custom-control custom-checkbox text-left mb-4 mt-2">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
@@ -69,37 +69,48 @@
 </body>
 
 <!-- my script -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var login_form = document.getElementById('login-form')
-    login_form.addEventListener('submit', (e) => {
-        e.preventDefault()
-        const formData=new FormData()
-        const email = document.getElementById('Email').value
-        const password = document.getElementById('Password').value
-        
-        formData.append('email',email)
-        formData.append('password',password)
-        fetch('/login', {
-            method: "POST",
-            body: formData,
-        }).then((response) => { response.json() })
-            .then((data) => {
-                Swal.fire(
-                    'Success',
-                    'successfully login',
-                    'success'
-                );
-            }).catch(error => {
-                Swal.fire(
-                    '🥱',
-                    'Wrong Credentials',
-                    'danger'
-                );
-            })
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var login_form = document.getElementById('login-form')
+        login_form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const formData = new FormData()
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+            console.log(email, password);
+            // formData.append('email', email)
+            // formData.append('password', password)
+            const loginObj={
+                email:email,
+                password:password
+            }
+            fetch('/login', {
+                method: "POST",
+                'headers':{
+                    "Content-Type":"application/json"
+                },
+                redirect:'follow',
+                referrerPolicy:'no-referrer',
+                body: JSON.stringify(loginObj)
+            }).then((response) => { response.json() })
+                .then((data) => {
+                    // Swal.fire(
+                    //     'Success',
+                    //     'successfully login',
+                    //     'success'
+                    // );
+                    console.log(data);
+                }).catch(error => {
+                    // Swal.fire(
+                    //     '🥱',
+                    //     'Wrong Credentials',
+                    //     'danger'
+                    // );
+                    console.log(error);
+                })
         });
-});
+    });
 
-</script>
+</script> -->
 
 </html>
