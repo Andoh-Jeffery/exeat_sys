@@ -4,28 +4,22 @@
 
 <head>
     <title>Exeat | Login</title>
-
-
     <!--[if lt IE 11]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="" />
     <meta name="keywords" content="">
     <meta name="author" content="Codedthemes" />
-
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" href="./css/style.css">
 </head>
-
 <div class="auth-wrapper">
     <div class="auth-content text-center">
-        <img src="./images/logo.png" alt="" class="img-fluid mb-4">
+        <!-- <img src="./images/logo.png" alt="" class="img-fluid mb-4"> -->
         <div class="card borderless">
             <div class="row align-items-center ">
                 <div class="col-md-12">
@@ -42,17 +36,16 @@
                                     name="password" required>
                             </div>
                             <div class="custom-control custom-checkbox text-left mb-4 mt-2">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Save credentials.</label>
+                                <!-- <input type="checkbox" class="custom-control-input" id="customCheck1"> -->
+                                <!-- <label class="custom-control-label" for="customCheck1">Save credentials.</label> -->
                             </div>
                             <button class="btn btn-block btn-primary mb-4">Signin</button>
                         </form>
 
                         <hr>
-                        <p class="mb-2 text-muted">Forgot password? <a href="auth-reset-password.html"
-                                class="f-w-400">Reset</a></p>
-                        <p class="mb-0 text-muted">Don’t have an account? <a href="auth-signup.html"
-                                class="f-w-400">Signup</a></p>
+                        <p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p>
+                        <!-- <p class="mb-0 text-muted">Don’t have an account? <a href="auth-signup.html" -->
+                        <!-- class="f-w-400">Signup</a></p> -->
                     </div>
                 </div>
             </div>
@@ -69,48 +62,6 @@
 </body>
 
 <!-- my script -->
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var login_form = document.getElementById('login-form')
-        login_form.addEventListener('submit', (e) => {
-            e.preventDefault()
-            const formData = new FormData()
-            const email = document.getElementById('email').value
-            const password = document.getElementById('password').value
-            console.log(email, password);
-            // formData.append('email', email)
-            // formData.append('password', password)
-            const loginObj={
-                email:email,
-                password:password
-            }
-            fetch('/login', {
-                method: "POST",
-                'headers':{
-                    "Content-Type":"application/json"
-                },
-                redirect:'follow',
-                referrerPolicy:'no-referrer',
-                body: JSON.stringify(loginObj)
-            }).then((response) => { response.json() })
-                .then((data) => {
-                    // Swal.fire(
-                    //     'Success',
-                    //     'successfully login',
-                    //     'success'
-                    // );
-                    console.log(data);
-                }).catch(error => {
-                    // Swal.fire(
-                    //     '🥱',
-                    //     'Wrong Credentials',
-                    //     'danger'
-                    // );
-                    console.log(error);
-                })
-        });
-    });
 
-</script> -->
 
 </html>

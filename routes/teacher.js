@@ -1,5 +1,6 @@
 const express=require('express')
 const router=express.Router()
+const bcrypt=require('bcrypt')
 const db=require('../config/db')
 
 router.post('/add_teacher',async(req,res)=>{

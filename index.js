@@ -5,6 +5,7 @@ const FireStoreStore = require("firestore-store")(session)
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 const db = require('./config/db')
+const {isAuth,isAuthorize}=require('./config/middlewares')
 const student = require('./routes/student')
 const teacher = require('./routes/teacher')
 const firestoreStore = require('firestore-store')
@@ -34,24 +35,7 @@ app.use('/teacher', teacher)
 
 
 // MIDDLEWARE
-const isAuth = (req, res, next) => {
-    if (req.session.isAuth) {
-        next()
-    }
-    else{
-        // res.redirect('/login')
-    }
-}
 
-const isAuthorize=(req,res,next)=>{
-    if(req.session.isAuthorize==="1"){
-        console.log("this is for house one");
-        next()
-    }else if(req.session.isAuthorize==="2"){
-        console.log("this is for house two");
-        next()
-    }else{console.log("not Authorize");}
-}
 
 // GET REQUEST TO /
 app.get('/', (req, res) => {
@@ -60,8 +44,14 @@ app.get('/', (req, res) => {
 })
 // 
 // GET REQUEST TO /DASHBOARD
-app.get('/dashboard', isAuth,isAuthorize,(req, res) => {
-    res.status(200).render('dashboard',{title:'dashboard'})
+app.get('/dashboard', isAuth,isAuthorize,async(req, res) => {
+    try {
+        const teacherData=await db.collection('teacher').where("house","==",req.session.isAuthorize).get()
+    //    console.log(teacherData.data());
+        res.status(200).render('dashboard',{title:'dashboard',auth:req.session.isAuthorize,data:teacherData})
+    } catch (error) {
+        console.log(error);
+    }
 })
 // LOGIN
 
@@ -93,6 +83,17 @@ app.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.log("error", error);
+    }
+})
+app.get('/logout',(req,res)=>{
+    try {     
+        req.session.destroy(err=>{
+            if(err){console.log(err);}
+            else{res.redirect('/')}
+        });
+        
+    } catch (error) {
+        console.log(error);
     }
 })
 

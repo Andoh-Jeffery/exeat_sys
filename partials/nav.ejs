@@ -1,56 +1,111 @@
-<nav class="pcoded-navbar menupos-fixed ">
-    <div class="navbar-wrapper  ">
-    <div class="navbar-content scroll-div ">
-    <div class="">
-    <div class="main-menu-header">
-    <img class="img-radius" src="/images/user/avatar-2.jpg" alt="User-Profile-Image">
-    <div class="user-details">
-    <span class="mb-0 font-weight-bold">John Doe</span>
-    <div id="more-details"><small>UX Designer<i class="fa fa-chevron-down m-l-5"></i></small></div>
-    </div>
-    </div>
-    <div class="collapse" id="nav-user-link">
-    <ul class="list-inline">
-    <li class="list-inline-item"><a href="user-profile.html" data-toggle="tooltip" title="View Profile"><i class="feather icon-user"></i></a></li>
-    <li class="list-inline-item"><a href="email_inbox.html"><i class="feather icon-mail" data-toggle="tooltip" title="Messages"></i><small class="badge badge-pill badge-primary">5</small></a></li>
-    <li class="list-inline-item"><a href="auth-signin.html" data-toggle="tooltip" title="Logout" class="text-danger"><i class="feather icon-power"></i></a></li>
-    </ul>
-    </div>
-    </div>
-    <ul class="nav pcoded-inner-navbar ">
-    <li class="nav-item pcoded-menu-caption">
-    <label>Navigation</label>
-    </li>
-    <li class="nav-item">
-    <a href="/dashboard" class="nav-link "><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-    </li>
-    <li class="nav-item pcoded-hasmenu">
-    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Students</span></a>
-    <ul class="pcoded-submenu">
-    <li><a href="/student/add">Add Student</a>
-    </li>
-    <li><a href="/student">View Students</a></li>
-    </ul>
-    </li>
-    <li class="nav-item pcoded-hasmenu">
-    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layers"></i></span><span class="pcoded-mtext">Exeat</span></a>
-    <ul class="pcoded-submenu">
-        <!-- <li><a href="/student/issue">Issue Exeat</a>
-        </li> -->
-        <li><a href="/student/issued">View Issued Exeat</a></li>
+<%if(auth!=='0'){%>
+    <nav class="pcoded-navbar menupos-fixed ">
+        <%data.forEach(dta=>{%>
+            <div class="navbar-wrapper  ">
+                <div class="navbar-content scroll-div ">
+        <div class="">
+        <div class="main-menu-header">
+        <img class="img-radius" src="/images/user/avatar-2.jpg" alt="User-Profile-Image">
+        <div class="user-details">
+        <span class="mb-0 font-weight-bold"><%=dta.data().name%></span>
+        <div id="more-details"><small>In Charge of House <%=dta.data().house%><i class=""></i></small></div>
+        </div>
+        </div>
+    
+        </div>
+        <ul class="nav pcoded-inner-navbar ">
+        <li class="nav-item pcoded-menu-caption">
+        <label>Navigation</label>
+        </li>
+        <li class="nav-item">
+        <a href="/dashboard" class="nav-link "><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+        </li>
+        <li class="nav-item pcoded-hasmenu">
+        <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Students</span></a>
+        <ul class="pcoded-submenu">
+        <!-- <li><a href="/student/add">Add Student</a> -->
+        </li>
+        <li><a href="/student">View Students</a></li>
         </ul>
-    </li>
-   
-    </ul>
-    <div class="card text-center">
-    <div class="card-block">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <i class="feather icon-sunset f-40"></i>
-    <h6 class="mt-3">Help?</h6>
-    <p>Please contact us on our email for need any support</p>
-    <a href="#!" target="_blank" class="btn btn-primary btn-sm text-white m-0">Support</a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </nav>
+        </li>
+        <li class="nav-item pcoded-hasmenu">
+        <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layers"></i></span><span class="pcoded-mtext">Exeat</span></a>
+        <ul class="pcoded-submenu">
+            <!-- <li><a href="/student/issue">Issue Exeat</a>
+            </li> -->
+            <li><a href="/student/issued">View Issued Exeat</a></li>
+            </ul>
+        </li>
+       
+        </ul>
+        <div class="card text-center">
+        <div class="card-block">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <i class="feather icon-sunset f-40"></i>
+        <h6 class="mt-3">Help?</h6>
+        <p>Please contact us on our email for need any support</p>
+        <a href="#!" target="_blank" class="btn btn-primary btn-sm text-white m-0">Support</a>
+        </div>
+        </div>
+        </div>
+        </div>
+    <%})%>
+        </nav>
+<%}else{%>
+    <nav class="pcoded-navbar menupos-fixed ">
+        <%data.forEach(dta=>{%>
+        <div class="navbar-wrapper  ">
+        <div class="navbar-content scroll-div ">
+        <div class="">
+        <div class="main-menu-header">
+        <img class="img-radius" src="/images/user/avatar-2.jpg" alt="User-Profile-Image">
+        <div class="user-details">
+        <span class="mb-0 font-weight-bold"><%=dta.data().name%></span>
+        <div id="more-details"><small>Over All Admin<i class="fa fa-chevron-down m-l-5"></i></small></div>
+        </div>
+        </div>
+        <div class="collapse" id="nav-user-link">
+        <ul class="list-inline">
+        <li class="list-inline-item"><a href="/logout" data-toggle="tooltip" title="Logout" class="text-danger"><i class="feather icon-power"></i></a></li>
+        </ul>
+        </div>
+        </div>
+        <ul class="nav pcoded-inner-navbar ">
+        <li class="nav-item pcoded-menu-caption">
+        <label>Navigation</label>
+        </li>
+        <li class="nav-item">
+        <a href="/dashboard" class="nav-link "><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+        </li>
+        <li class="nav-item pcoded-hasmenu">
+        <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Students</span></a>
+        <ul class="pcoded-submenu">
+        <li><a href="/student/add">Add Student</a>
+        </li>
+        <li><a href="/student">View Students</a></li>
+        </ul>
+        </li>
+        <li class="nav-item pcoded-hasmenu">
+        <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-layers"></i></span><span class="pcoded-mtext">Exeat</span></a>
+        <ul class="pcoded-submenu">
+            <!-- <li><a href="/student/issue">Issue Exeat</a>
+            </li> -->
+            <li><a href="/student/issued">View Issued Exeat</a></li>
+            </ul>
+        </li>
+       
+        </ul>
+        <div class="card text-center">
+        <div class="card-block">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <i class="feather icon-sunset f-40"></i>
+        <h6 class="mt-3">Help?</h6>
+        <p>Please contact us on our email for need any support</p>
+        <a href="#!" target="_blank" class="btn btn-primary btn-sm text-white m-0">Support</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        <%})%>
+        </nav>
+<%}%>
