@@ -69,14 +69,14 @@
                           <td><%=exeat.data().studentName%></td>
                           <td><%=exeat.data().reason%></td>
                           <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
-                          <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
+                          <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
                           <td><%=exeat.data().parentTelephone%></td>
                           
                           <%}else{%>                  
                           <td><%=exeat.data().studentName%></td>
                           <td><%=exeat.data().reason%></td>
                           <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
-                          <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
+                          <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
                           <td><%=exeat.data().parentTelephone%></td>
                           <td>
                             <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
