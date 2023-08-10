@@ -1,6 +1,6 @@
 const express=require('express')
 const db=require('../config/db')
-const {isAuth,isAuthorize}=require('../config/middlewares')
+const {isAuth,isAuthorize,islegit}=require('../config/middlewares')
 const session = require('express-session')
 const moment=require('moment')
 const FormData=require('form-data')
@@ -34,7 +34,7 @@ router.get('/',isAuth,async(req,res)=>{
         console.log(error);
     }
 })
-router.get('/add',isAuth,async(req,res)=>{
+router.get('/add',isAuth,islegit,async(req,res)=>{
     try {
         const courses=await db.collection('course').get()
         const houses=await db.collection('house').get()
@@ -46,17 +46,24 @@ router.get('/add',isAuth,async(req,res)=>{
 })
 router.get('/issued',isAuth,async(req,res)=>{
     try {
+        const date=moment().format('LL')
         if(req.session.isAuthorize==='0'){
 
             const issued=await db.collection('exeat').where('hasReturn','==',false).get()
             const teacherData=await db.collection('teacher').where("house","==",req.session.isAuthorize).get()
-            res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment,auth:req.session.isAuthorize,data:teacherData})
+            res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment,auth:req.session.isAuthorize,data:teacherData,date:date})
+        }
+        else if(req.session.isAuthorize==='00'){
+            const issued=await db.collection('exeat').where('hasReturn','==',false).get()
+            const teacherData=await db.collection('teacher').where("house","==",req.session.isAuthorize).get()
+            res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment,auth:req.session.isAuthorize,data:teacherData,date:date})
         }
         else{
         const issued=await db.collection('exeat').where('hasReturn','==',false).where('house','==',req.session.isAuthorize).get()
         const teacherData=await db.collection('teacher').where("house","==",req.session.isAuthorize).get()
-        res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment,auth:req.session.isAuthorize,data:teacherData})
+        res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment,auth:req.session.isAuthorize,data:teacherData,date:date})
         }
+        // console.log(date);
     } catch (error) {
         console.log(error);
     }

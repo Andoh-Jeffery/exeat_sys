@@ -13,8 +13,16 @@ const isAuthorize=(req,res,next)=>{
     }
     else{console.log("not Authorize");}
 }
-
+const islegit=(req,res,next)=>{
+    if(req.session.isAuthorize=='0'){
+        next()
+    }
+    else{
+        res.redirect('/dashboard')
+    }
+}
 module.exports={
     isAuth,
-    isAuthorize
+    isAuthorize,
+    islegit
 }
