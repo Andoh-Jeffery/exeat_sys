@@ -4,5 +4,11 @@ const credentials=require('./exeat.json')
 firebase.initializeApp({
     credential:firebase.credential.cert(credentials)
 })
+
 const db=firebase.firestore()
-module.exports=db;
+const message=firebase.messaging()
+
+module.exports={
+    db,
+    message
+};

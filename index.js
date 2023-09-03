@@ -3,8 +3,9 @@ const session = require('express-session')
 const path=require('path')
 const FireStoreStore = require("firestore-store")(session)
 const bcrypt = require('bcrypt')
+const flash=require('express-flash-2')
 require('dotenv').config()
-const db = require('./config/db')
+const {db} = require('./config/db')
 const {isAuth,isAuthorize}=require('./config/middlewares')
 const student = require('./routes/student')
 const teacher = require('./routes/teacher')
@@ -28,6 +29,7 @@ app.set("view engine", "ejs");
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname,"./public")))
+
 app.use('/student', student)
 app.use('/teacher', teacher)
 
@@ -47,8 +49,10 @@ app.get('/', (req, res) => {
 app.get('/dashboard', isAuth,isAuthorize,async(req, res) => {
     try {
         const teacherData=await db.collection('teacher').where("house","==",req.session.isAuthorize).get()
-    //    console.log(teacherData.data());
-        res.status(200).render('dashboard',{title:'dashboard',auth:req.session.isAuthorize,data:teacherData})
+        const teacherNumData=await db.collection('teacher').count().get()
+        const studentsData=await db.collection('student').count().get()
+    //    console.log(studentsData.data().count);
+        res.status(200).render('dashboard',{title:'dashboard',auth:req.session.isAuthorize,data:teacherData,studentData:studentsData.data().count,teacherNumData:teacherNumData.data().count})
     } catch (error) {
         console.log(error);
     }
@@ -65,12 +69,6 @@ app.post('/login', async (req, res) => {
             teacher.forEach(async (teacher) => {
                 const isMatch = await bcrypt.compare(password, teacher.data().password)
                 if (!isMatch) {
-                    // console.log("matched");
-                    // console.log(teacher.data().house);
-                    // console.log(tea.data().email);
-                    // req.session.isAuth = true
-                    // req.session.isAuthorize = teacher.data().house
-                    // return res.redirect('/dashboard')
                     console.log("no match");
                 }
                 req.session.isAuth = true;

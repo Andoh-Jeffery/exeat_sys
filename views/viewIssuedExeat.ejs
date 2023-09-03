@@ -65,14 +65,16 @@
                     <tbody>
                       <%issuedExeat.forEach(exeat=>{%>          
                         <tr>
-                          <%if (auth=='00'){%>
+                          <%if (auth=='00' && date>moment(exeat.data().dateOfReturn).format('LL')){%>
+                        <div style="background-color: red;">
                           <td><%=exeat.data().studentName%></td>
                           <td><%=exeat.data().reason%></td>
                           <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
                           <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
                           <td><%=exeat.data().parentTelephone%></td>
-                          
-                          <%}else{%>                  
+                        </div>
+                          <%}else if(auth !=='00' && date>moment(exeat.data().dateOfReturn).format('LL')){%>                  
+                            <div style="background-color: red;">
                           <td><%=exeat.data().studentName%></td>
                           <td><%=exeat.data().reason%></td>
                           <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
@@ -81,6 +83,9 @@
                           <td>
                             <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
                           </td>
+                        </div>
+                        <%}else{%>
+                          <h1>hello</h1>
                         <%}%>
                         </tr>
                       <%})%>

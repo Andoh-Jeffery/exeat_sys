@@ -21,12 +21,25 @@
             </div>
           </div>
         </div>
+        <%if(message.length > 0){%>
+          <div class="alert alert-success alert-dismissible fade show" role="alert"><%=message%></div>
+        <%}%>
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
               <div class="card-header">
                 <h5>Add Student</h5>
-                <button class="btn btn-secondary" style="float: right;">Upload Students</button>
+                <!-- <button class="btn btn-secondary" style="float: right;">Upload Students</button> -->
+                <!-- <input type="file" style="float: right;" class="btn btn-secondary"> -->
+                <form action="/student/upload" enctype="multipart/form-data" method="post">
+                <label for="excelFileInput" class="file-upload-btn btn btn-secondary" style="
+                padding: 10px 20px;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                float: right;">Upload Students</label>
+                <input type="file" id="excelFileInput" style="display: none;" accept=".xlsx" name="file">
+              </form>
               </div>
               <div class="card-body">
                 <form id="addStudentForm" method="post">
@@ -183,6 +196,15 @@
 
     <%-include('../partials/scripts.ejs')-%>
     <script>
+      // ===========================================
+      // document.querySelector('.file-upload-btn').addEventListener('click', function () {
+      //     document.getElementById('excelFileInput').click();
+          
+        // });
+        document.getElementById('excelFileInput').addEventListener('change', function () {
+            this.form.submit();
+        });
+      // ===========================================
       var formData=new FormData()
       document.getElementById('addStudentForm').addEventListener('submit',(e)=>{
         e.preventDefault()

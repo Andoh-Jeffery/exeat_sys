@@ -1,12 +1,21 @@
 const express=require('express')
-const db=require('../config/db')
+const {db,message}=require('../config/db')
 const {isAuth,isAuthorize,islegit}=require('../config/middlewares')
 const session = require('express-session')
+const flash=require('connect-flash')
 const moment=require('moment')
+const multer=require('multer')
+const xlsx=require('xlsx')
 const FormData=require('form-data')
 const fetch=require('node-fetch')
 const router=express.Router()
-
+// ================================
+// =================================
+const storageMulter = multer.memoryStorage();
+const upload = multer({ storage: storageMulter });
+// =================================
+router.use(flash())
+// =================================
 router.post('/create',async(req,res)=>{
     // const data=req.body;
     try {
@@ -39,13 +48,31 @@ router.get('/add',isAuth,islegit,async(req,res)=>{
         const courses=await db.collection('course').get()
         const houses=await db.collection('house').get()
         const teacherData=await db.collection('teacher').where("house","==",req.session.isAuthorize).get()
-        res.status(200).render('addStudent',{title:'add student',course:courses,house:houses,auth:req.session.isAuthorize,data:teacherData})
+        res.status(200).render('addStudent',{title:'add student',course:courses,house:houses,auth:req.session.isAuthorize,data:teacherData,message:req.flash('message')})
     } catch (error) {
         console.log(error);
     }
 })
 router.get('/issued',isAuth,async(req,res)=>{
-    try {
+    const token=await message
+    console.log(token);
+    try{
+          // Check if the browser supports the Notification API
+          const registrationToken = 'user_fcm_token'; // Replace with the user's token
+
+const message = {
+  notification: {
+    title: 'Your Notification Title',
+    body: 'Your Notification Body',
+  },
+  token: registrationToken,
+};
+
+admin.messaging().send(message)
+  .then((response) => {
+    console.log('Successfully sent message:', response);
+  })
+  .catch((error)=>{console.log(error);})
         const date=moment().format('LL')
         if(req.session.isAuthorize==='0'){
 
@@ -123,6 +150,36 @@ router.post('/issue_exeat',async(req,res)=>{
         res.status(200).json('exeat issued')
     } catch (error) {
         console.log(error);
+    }
+})
+router.post('/upload',upload.single('file'),async(req,res)=>{
+    try {
+        // Get the uploaded file
+        const file = req.file;
+        console.log(file);
+
+        if (!file) {
+            return res.status(400).send('No file Loaded');
+        }
+
+        // Parse the Excel file
+        const workbook = xlsx.read(file.buffer, { type: 'buffer' });
+        const sheetName = workbook.SheetNames[0];
+        const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+        // Store data in Firestore
+        const collectionRef = db.collection('student');
+
+        await Promise.all(sheetData.map(async (data) => {
+            await collectionRef.add(data);
+        }));
+
+        // return res.status(200).send('Data uploaded to Firestore successfully.');
+        return res.status(200).send('File loaded sucessfully');
+    } catch (error) {
+        console.error('Error uploading data:', error);
+        return res.status(500).send('Error uploading data.');
+        
     }
 })
 
