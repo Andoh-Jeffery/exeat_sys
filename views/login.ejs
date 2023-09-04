@@ -24,9 +24,10 @@
             <div class="row align-items-center ">
                 <div class="col-md-12">
                     <div class="card-body">
+                        <h3 style="letter-spacing: 2px;">EXEAT <span><i class="feather icon-log-out"></i></span> SYSTEM</h3>
                         <h4 class="mb-3 f-w-400">Signin</h4>
                         <hr>
-                        <form action="/login" id="login-form" method="post">
+                        <form action="/login" id="login-form" method="post" onsubmit="validateForm()">
                             <div class="form-group mb-3">
                                 <input type="text" class="form-control" id="email" placeholder="Email address"
                                     name="email" required>
@@ -40,10 +41,12 @@
                                 <!-- <label class="custom-control-label" for="customCheck1">Save credentials.</label> -->
                             </div>
                             <button class="btn btn-block btn-primary mb-4">Signin</button>
+                            
                         </form>
 
                         <hr>
-                        <p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p>
+                        <!-- <p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p> -->
+                        <p>designed BY <a href="#" class="f-w-400">Nabeel</a> & <a href="#" class="f-w-400">NK</a></p>
                         <!-- <p class="mb-0 text-muted">Don’t have an account? <a href="auth-signup.html" -->
                         <!-- class="f-w-400">Signup</a></p> -->
                     </div>
@@ -62,6 +65,20 @@
 </body>
 
 <!-- my script -->
-
+<script>
+    function validateForm() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value
+      // Define a regular expression to allow only letters, numbers, and underscores
+      const regex = /^[a-zA-Z0-9_]+$/;
+  
+      if (regex.test(email) || regex.test(password)) {
+        alert('Please enter a valid email and password with no special characters.');
+        return false; // Prevent form submission
+      }
+  
+      return true; // Allow form submission
+    }
+  </script>
 
 </html>

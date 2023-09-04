@@ -38,7 +38,19 @@ app.use('/teacher', teacher)
 
 // MIDDLEWARE
 
-
+// Middleware to handle errors
+app.use((err, req, res, next) => {
+    // Handle specific error types and render the login page with error messages
+    if (err.name === 'ValidationError') {
+      res.render('login', { error: err.message });
+    } else {
+      // Handle other types of errors (e.g., database errors)
+      // You can log the error for debugging and render an error page
+      console.error(err);
+      res.status(500).render('error', { error: 'Internal Server Error' });
+    }
+  });
+  
 // GET REQUEST TO /
 app.get('/', (req, res) => {
     res.render('login')
@@ -70,6 +82,8 @@ app.post('/login', async (req, res) => {
                 const isMatch = await bcrypt.compare(password, teacher.data().password)
                 if (!isMatch) {
                     console.log("no match");
+                   
+                    return  res.redirect('/')
                 }
                 req.session.isAuth = true;
                 req.session.isAuthorize = teacher.data().house;
@@ -78,6 +92,7 @@ app.post('/login', async (req, res) => {
         }
         else {
             console.log('wrong creds');
+            res.redirect('/')
         }
     } catch (error) {
         console.log("error", error);

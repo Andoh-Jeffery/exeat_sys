@@ -46,7 +46,7 @@
                         <th>Date Of Issue</th>
                         <th>Date Of Return</th>
                         <th>Parent Telephone</th>
-                        <!-- <th>Returned</th> -->
+                        <th>Status</th>
                       </tr>
                     </thead>
                   <%}else{%>
@@ -58,6 +58,7 @@
                         <th>Date Of Issue</th>
                         <th>Date Of Return</th>
                         <th>Parent Telephone</th>
+                        <th>Status</th>
                         <th>Returned</th>
                       </tr>
                     </thead>
@@ -65,21 +66,42 @@
                     <tbody>
                       <%issuedExeat.forEach(exeat=>{%>          
                         <tr>
-                          <%if (auth=='00' && date>moment(exeat.data().dateOfReturn).format('LL')){%>
+                          <%if (auth=='00'){%>
                         <div style="background-color: red;">
                           <td><%=exeat.data().studentName%></td>
                           <td><%=exeat.data().reason%></td>
                           <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
                           <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
                           <td><%=exeat.data().parentTelephone%></td>
+                          <%if(date > moment(exeat.data().dateOfReturn).format('LL')){%>
+                            <script>
+                              const status=document.getElementById('status')
+                              status.style.display='block'
+                            </script>
+                            <td class="badge badge-danger"> overstayed</td>
+                            <%}else{%>
+                              <td class="badge badge-info">not returned</td>
+
+                            <%}%> 
                         </div>
-                          <%}else if(auth !=='00' && date>moment(exeat.data().dateOfReturn).format('LL')){%>                  
-                            <div style="background-color: red;">
-                          <td><%=exeat.data().studentName%></td>
-                          <td><%=exeat.data().reason%></td>
-                          <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
-                          <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
-                          <td><%=exeat.data().parentTelephone%></td>
+                          <%}else if(auth !=='00'){%>
+                            <!-- <div>Hello</div> -->
+                            <div id="color">
+                              <td><%=exeat.data().studentName%></td>
+                              <td><%=exeat.data().reason%></td>
+                              <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
+                              <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
+                              <td><%=exeat.data().parentTelephone%></td>
+                              <%if(date > moment(exeat.data().dateOfReturn).format('LL')){%>
+                                <script>
+                                  const status=document.getElementById('status')
+                                  status.style.display='block'
+                                </script>
+                                <td class="badge badge-danger"> overstayed</td>
+                                <%}else{%>
+                                  <td class="badge badge-info">not returned</td>
+
+                                <%}%> 
                           <td>
                             <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
                           </td>
@@ -168,7 +190,7 @@
                                     }).then((response)=>response.json())
                                     .then((updateResponse)=>{
                                         console.log('updated');
-                                        document.location.reload();
+                                        document.location.reload(true);
                                 }).catch(error=>{
                                     console.log(error);
                                 })

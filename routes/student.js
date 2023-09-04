@@ -68,11 +68,11 @@ const message = {
   token: registrationToken,
 };
 
-admin.messaging().send(message)
-  .then((response) => {
-    console.log('Successfully sent message:', response);
-  })
-  .catch((error)=>{console.log(error);})
+// admin.messaging().send(message)
+//   .then((response) => {
+//     console.log('Successfully sent message:', response);
+//   })
+//   .catch((error)=>{console.log(error);})
         const date=moment().format('LL')
         if(req.session.isAuthorize==='0'){
 
