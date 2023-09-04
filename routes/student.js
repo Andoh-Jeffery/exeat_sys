@@ -1,7 +1,7 @@
 const express=require('express')
 const {db,message}=require('../config/db')
 const {isAuth,isAuthorize,islegit}=require('../config/middlewares')
-const session = require('express-session')
+// const session = require('express-session')
 const flash=require('connect-flash')
 const moment=require('moment')
 const multer=require('multer')
@@ -54,26 +54,11 @@ router.get('/add',isAuth,islegit,async(req,res)=>{
     }
 })
 router.get('/issued',isAuth,async(req,res)=>{
-    const token=await message
-    console.log(token);
+    // const token=await message
+    // console.log(token);
     try{
-          // Check if the browser supports the Notification API
-          const registrationToken = 'user_fcm_token'; // Replace with the user's token
-
-const message = {
-  notification: {
-    title: 'Your Notification Title',
-    body: 'Your Notification Body',
-  },
-  token: registrationToken,
-};
-
-// admin.messaging().send(message)
-//   .then((response) => {
-//     console.log('Successfully sent message:', response);
-//   })
-//   .catch((error)=>{console.log(error);})
         const date=moment().format('LL')
+        console.log(req.session.isAuthorize);
         if(req.session.isAuthorize==='0'){
 
             const issued=await db.collection('exeat').where('hasReturn','==',false).get()
@@ -86,7 +71,7 @@ const message = {
             res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment,auth:req.session.isAuthorize,data:teacherData,date:date})
         }
         else{
-        const issued=await db.collection('exeat').where('hasReturn','==',false).where('house','==',req.session.isAuthorize).get()
+        const issued=await db.collection('exeat').where('house','==',req.session.isAuthorize).where('hasReturn','==',false).get()
         const teacherData=await db.collection('teacher').where("house","==",req.session.isAuthorize).get()
         res.status(200).render('viewIssuedExeat',{title:'issued exeat',issuedExeat:issued,moment:moment,auth:req.session.isAuthorize,data:teacherData,date:date})
         }

@@ -49,8 +49,20 @@
                         <th>Status</th>
                       </tr>
                     </thead>
-                  <%}else{%>
+                  <%}else if(auth==='0'){%>
 
+                    <thead>
+                      <tr>
+                        <th>Student Name</th>
+                        <th>Reason</th>
+                        <th>Date Of Issue</th>
+                        <th>Date Of Return</th>
+                        <th>Parent Telephone</th>
+                        <th>Status</th>
+                        <th>Returned</th>
+                      </tr>
+                    </thead>
+                  <%}else{%>
                     <thead>
                       <tr>
                         <th>Student Name</th>
@@ -65,51 +77,67 @@
                   <%}%>
                     <tbody>
                       <%issuedExeat.forEach(exeat=>{%>          
-                        <tr>
-                          <%if (auth=='00'){%>
-                        <div style="background-color: red;">
-                          <td><%=exeat.data().studentName%></td>
-                          <td><%=exeat.data().reason%></td>
-                          <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
-                          <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
-                          <td><%=exeat.data().parentTelephone%></td>
-                          <%if(date > moment(exeat.data().dateOfReturn).format('LL')){%>
-                            <script>
+                        <%if (auth==='00'){%>
+                          <tr>
+                            <td><%=exeat.data().studentName%></td>
+                            <td><%=exeat.data().reason%></td>
+                            <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
+                            <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
+                            <td><%=exeat.data().parentTelephone%></td>
+                            <%if(date > moment(exeat.data().dateOfReturn).format('LL')){%>
+                            <!-- <script>
                               const status=document.getElementById('status')
                               status.style.display='block'
-                            </script>
+                            </script> -->
                             <td class="badge badge-danger"> overstayed</td>
                             <%}else{%>
                               <td class="badge badge-info">not returned</td>
-
                             <%}%> 
-                        </div>
-                          <%}else if(auth !=='00'){%>
-                            <!-- <div>Hello</div> -->
-                            <div id="color">
+                            </tr>
+                        <%}else if(auth==='0'){%>
+                            <tr>
+
                               <td><%=exeat.data().studentName%></td>
                               <td><%=exeat.data().reason%></td>
                               <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
                               <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
                               <td><%=exeat.data().parentTelephone%></td>
                               <%if(date > moment(exeat.data().dateOfReturn).format('LL')){%>
-                                <script>
+                                <!-- <script>
                                   const status=document.getElementById('status')
                                   status.style.display='block'
-                                </script>
+                                </script> -->
                                 <td class="badge badge-danger"> overstayed</td>
                                 <%}else{%>
-                                  <td class="badge badge-info">not returned</td>
+                                <td class="badge badge-info">not returned</td>
 
                                 <%}%> 
-                          <td>
-                            <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
-                          </td>
-                        </div>
-                        <%}else{%>
-                          <h1>hello</h1>
-                        <%}%>
-                        </tr>
+                                <td>
+                                  <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
+                                </td>
+                              </tr>
+                            <%}else{%>
+                                <tr>
+                                <td><%=exeat.data().studentName%></td>
+                                <td><%=exeat.data().reason%></td>
+                                <td><%=moment(exeat.data().dateOfIssue).format('LL')%></td>
+                                <td><%=moment(exeat.data().dateOfReturn).format('LL')%></td>
+                                <td><%=exeat.data().parentTelephone%></td>
+                                <%if(date > moment(exeat.data().dateOfReturn).format('LL')){%>
+                                  <!-- <script>
+                                    const status=document.getElementById('status')
+                                    status.style.display='block'
+                                  </script> -->
+                                  <td class="badge badge-danger"> overstayed</td>
+                                  <%}else{%>
+                                  <td class="badge badge-info">not returned</td>
+  
+                                  <%}%> 
+                                  <td>
+                                    <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
+                                  </td>
+                                </tr>
+                              <%}%>
                       <%})%>
                     </tbody>
                     <!-- <tfoot>

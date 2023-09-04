@@ -214,7 +214,7 @@
         const course=document.querySelector('#course').value
         const house=document.querySelector('#house').value
         const parentTelephone=document.getElementById('parentTelephone').value
-        
+        validate(firstName,middleName,lastName)
         // formData.append('firstName',firstName)
         // formData.append('middleName',middleName)
         // formData.append('lastName',lastName)
@@ -252,6 +252,14 @@
                 })
             })
         })
+        function validate(firstName,middleName,lastName,){
+        const partten=/^[a-zA-Z0-9\s]+$/
+        if(!partten.test(firstName)|| !partten.test(middleName) || !partten.test(lastName)){
+        alert('INVALID CHARACTERS...😨')
+        return false;
+        }
+        return true;
+      }
     </script>
   </body>
 </html>

@@ -43,6 +43,7 @@
                           value="<%=exeat.firstName%> <%=exeat.lastName%>"
                           disabled
                         />
+                        <h2 id="house" hidden><%=exeat.house%></h2>
                       </div>
                     </div>
                     <div class="col-sm-4">
@@ -168,6 +169,7 @@
         const dateOfReturn=document.getElementById('dateOfReturn').value
         const parentTelephone=document.getElementById('parentTelephone').value
         const reason=document.getElementById('reason').value
+        const house=document.getElementById('house').innerHTML
         console.log(studentName,dateOfIssue,dateOfReturn,parentTelephone,reason)
 
         const exeatData={
@@ -176,7 +178,8 @@
           dateOfReturn:dateOfReturn,
           parentTelephone:parentTelephone,
           reason:reason,
-          hasReturn:false
+          hasReturn:false,
+          house:house
         }
         fetch('/student/issue_exeat',{
                 method:'post',
