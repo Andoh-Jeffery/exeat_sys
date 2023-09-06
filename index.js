@@ -98,17 +98,23 @@ app.post('/login', async (req, res) => {
         console.log("error", error);
     }
 })
-app.get('/logout',(req,res)=>{
+app.get('/logout',async(req,res)=>{
     try {     
         req.session.destroy(err=>{
             if(err){console.log(err);}
-            else{res.redirect('/')}
+            else{
+                
+                res.redirect('/')}
         });
         
     } catch (error) {
         console.log(error);
     }
 })
+
+app.use((req,res)=>{
+    res.status(404).render('404',{title:'404'})
+});
 
 
 app.listen(process.env.PORT, (console.log(`listening on port http://localhost:${process.env.PORT}`)))

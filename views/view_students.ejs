@@ -59,7 +59,9 @@
                           <td><%=student.data().parentTelephone%></td>
                           <td>
                             <a href="/student/issue/<%=student.id%>"><i class="feather fa-lg icon-edit p-15" title="issue exeat"></i></a>
+                            <a data-id="<%=student.id%>" class="delete-btn" style="cursor: pointer;"><i class="feather fa-lg icon-trash-2 p-15" title="Delete Student"></i></a>
                           </td>
+              
                         </tr>
                       <%})%>
                     </tbody>
@@ -130,4 +132,44 @@
     <![endif]-->
   </body>
   <%-include('../partials/scripts.ejs')-%>
+  <script>
+     const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                    })
+    document.addEventListener("DOMContentLoaded", () => {
+                          let delete_btn = document.querySelectorAll('.delete-btn');
+                          for (let i = 0; i < delete_btn.length; i++) {
+                              const element = delete_btn[i];
+                              element.addEventListener('click', (e) => {
+                                  e.preventDefault()
+                                  console.log('/student/delete/'+ element.dataset.id)
+                                  fetch('/student/delete/'+ element.dataset.id,{
+                                      method:"delete",
+                                  }).then((response)=>response.json())
+                                  .then((updateResponse)=>{
+                                    Toast.fire({
+                                icon: 'success',
+                                iconColor:'#fb2f0b',
+                                title: 'Student deleted successfully'
+                                })
+                                      location.reload();
+                              }).catch(error=>{
+                                Toast.fire({
+                                icon: 'Error',
+                                iconColor:'#ff0000',
+                                title: 'Error Deleting student'
+                                })
+                              })
+                              })
+
+                          }
+    });
+  </script>
 </html>

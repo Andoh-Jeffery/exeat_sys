@@ -89,6 +89,15 @@ router.put('/issued/:id',isAuth,async(req,res)=>{
         console.log(error);
     }
 })
+router.delete('/delete/:id',isAuth,async(req,res)=>{
+    const id=req.params.id
+    try {
+        await db.collection('student').doc(id).delete()
+        res.status(201).json('deleted')
+    } catch (error) {
+        console.log(error);
+    }
+})
 router.post('/add',async(req,res)=>{
     try {
         const {firstName,middleName,lastName,house,course,parentTelephone}=req.body

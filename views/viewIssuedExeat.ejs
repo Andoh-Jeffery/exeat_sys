@@ -89,7 +89,7 @@
                               const status=document.getElementById('status')
                               status.style.display='block'
                             </script> -->
-                            <td class="badge badge-danger"> overstayed</td>
+                            <td><span class="badge badge-pill badge-danger">overstayed </span></td>
                             <%}else{%>
                               <td class="badge badge-info">not returned</td>
                             <%}%> 
@@ -134,7 +134,7 @@
   
                                   <%}%> 
                                   <td>
-                                    <a data-id="<%=exeat.id%>" class="check_btn"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
+                                    <a data-id="<%=exeat.id%>" class="check_btn" style="cursor: pointer;"><i class="feather fa-lg icon-check p-15" style="color: green;cursor: pointer;"></i></a>
                                   </td>
                                 </tr>
                               <%}%>
