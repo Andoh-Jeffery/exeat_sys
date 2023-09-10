@@ -57,7 +57,7 @@ router.get('/issued',isAuth,async(req,res)=>{
     // const token=await message
     // console.log(token);
     try{
-        const date=moment().format('LL')
+        let date=moment().format('YYYY-MM-DD')
         console.log(req.session.isAuthorize);
         if(req.session.isAuthorize==='0'){
 
