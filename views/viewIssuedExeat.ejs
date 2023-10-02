@@ -92,7 +92,7 @@
                                         <td>
                                           <%=exeat.data().parentTelephone%>
                                         </td>
-                                        <%if(date > exeat.data().dateOfReturn){%>
+                                        <%if(date> exeat.data().dateOfReturn){%>
                                           <td class="badge badge-danger"> overstayed</td>
                                           <%}else{%>
                                             <td class="badge badge-info">not returned</td>
@@ -117,7 +117,7 @@
                                           <td>
                                             <%=exeat.data().parentTelephone%>
                                           </td>
-                                          <%if(date > exeat.data().dateOfReturn){%>
+                                          <%if(date> exeat.data().dateOfReturn){%>
                                             <!-- <script>
                                               const status = document.getElementById('status')
                                               status.style.display = 'block'
@@ -149,9 +149,9 @@
                                             </td>
                                             <td>
                                               <%=exeat.data().parentTelephone%>
-                                                
+
                                             </td>
-                                            <%if(date > exeat.data().dateOfReturn){%>
+                                            <%if(date> exeat.data().dateOfReturn){%>
                                               <!-- <script>
                                                 const status = document.getElementById('status')
                                                 status.style.display = 'block'
@@ -260,7 +260,7 @@
                       console.log('updated');
                       Toast.fire({
                         icon: 'success',
-                        iconColor: '#fb2f0b',
+                        iconColor: '#6ade66',
                         title: 'Student returned'
                       })
                       location.reload();

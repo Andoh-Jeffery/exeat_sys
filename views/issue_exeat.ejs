@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%-include('../partials/head.ejs')-%>
+<%- include('../partials/head.ejs') -%>
+
   <body class="">
-    <%-include('../partials/nav.ejs',{auth:auth,data:data})-%> <%-include('../partials/header.ejs')-%>
-    <section class="pcoded-main-container">
-      <div class="pcoded-content">
-        <div class="page-header">
-          <div class="page-block">
-            <div class="row align-items-center">
-              <!-- <div class="col-md-12">
+    <%- include('../partials/nav.ejs',{auth:auth,data:data}) -%> <%- include('../partials/header.ejs') -%>
+        <section class="pcoded-main-container">
+          <div class="pcoded-content">
+            <div class="page-header">
+              <div class="page-block">
+                <div class="row align-items-center">
+                  <!-- <div class="col-md-12">
 <div class="page-header-title">
 <h5 class="m-b-10">Form Elements</h5>
 </div>
@@ -18,102 +19,68 @@
 <li class="breadcrumb-item"><a href="#!">Form Elements</a></li>
 </ul>
 </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-header">
-                <h5>Issue Exeat</h5>
-                <!-- <button class="btn btn-secondary" style="float: right;">Upload Students</button> -->
+                </div>
               </div>
-              <div class="card-body">
-                <form id="issueExeatForm">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label class="floating-label" for="Email"
-                          >Student Name</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="studentName"
-                          value="<%=exeat.firstName%> <%=exeat.lastName%>"
-                          disabled
-                        />
-                        <h2 id="house" hidden><%=exeat.house%></h2>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label class="floating-label" for="dateOfIssue"
-                          >Date of Issue</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="dateOfIssue"
-                          placeholder="Date Of Issue"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label class="floating-label" for="Email">Date of Return</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="dateOfReturn"
-                          placeholder="Date Of Return"
-                        />
-                      </div>
-                    </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5>Issue Exeat</h5>
+                    <!-- <button class="btn btn-secondary" style="float: right;">Upload Students</button> -->
                   </div>
+                  <div class="card-body">
+                    <form id="issueExeatForm">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="floating-label" for="Email">Student Name</label>
+                            <input type="text" class="form-control" id="studentName"
+                              value="<%=exeat.firstName%> <%=exeat.lastName%>" disabled />
+                            <h2 id="house" hidden>
+                              <%=exeat.house%>
+                            </h2>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="floating-label" for="dateOfIssue">Date of Issue</label>
+                            <input type="date" class="form-control" id="dateOfIssue" placeholder="Date Of Issue" />
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="floating-label" for="Email">Date of Return</label>
+                            <input type="date" class="form-control" id="dateOfReturn" placeholder="Date Of Return" />
+                          </div>
+                        </div>
+                      </div>
 
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label class="floating-label" for="password"
-                          >Parent Telephone</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="parentTelephone"
-                          value="<%=exeat.parentTelephone%>"
-                          disabled
-                        />
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="floating-label" for="password">Parent Telephone</label>
+                            <input type="text" class="form-control" id="parentTelephone"
+                              value="<%=exeat.parentTelephone%>" disabled />
+                          </div>
+                        </div>
+                        <div class="col-sm-8">
+                          <div class="form-group">
+                            <label class="floating-label" for="Text">Reason</label>
+                            <input type="text" class="form-control" id="reason" placeholder="reason" />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-sm-8">
-                      <div class="form-group">
-                        <label class="floating-label" for="Text"
-                          >Reason</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="reason"
-                          placeholder="reason"
-                        />
-                      </div>
-                    </div>
+                      <input type="submit" value="Issue" class="btn btn-primary w-100" />
+                    </form>
                   </div>
-                  <input
-                    type="submit"
-                    value="Issue"
-                    class="btn btn-primary w-100"
-                  />
-                </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!--[if lt IE 11]>
+        <!--[if lt IE 11]>
       <div class="ie-warning">
         <h1>Warning!!</h1>
         <p>
@@ -160,49 +127,50 @@
       </div>
     <![endif]-->
 
-    <%-include('../partials/scripts.ejs')-%>
-    <script>
-      document.getElementById('issueExeatForm').addEventListener('submit',(e)=>{
-        e.preventDefault()
-        const studentName=document.getElementById('studentName').value
-        const dateOfIssue=document.getElementById('dateOfIssue').value
-        const dateOfReturn=document.getElementById('dateOfReturn').value
-        const parentTelephone=document.getElementById('parentTelephone').value
-        const reason=document.getElementById('reason').value
-        const house=document.getElementById('house').innerHTML
-        console.log(studentName,dateOfIssue,dateOfReturn,parentTelephone,reason)
+        <%- include('../partials/scripts.ejs') -%>
+          <script>
+            document.getElementById('issueExeatForm').addEventListener('submit', (e) => {
+              e.preventDefault()
+              const studentName = document.getElementById('studentName').value
+              const dateOfIssue = document.getElementById('dateOfIssue').value
+              const dateOfReturn = document.getElementById('dateOfReturn').value
+              const parentTelephone = document.getElementById('parentTelephone').value
+              const reason = document.getElementById('reason').value
+              const house = document.getElementById('house').innerHTML
+              console.log(studentName, dateOfIssue, dateOfReturn, parentTelephone, reason)
 
-        const exeatData={
-          studentName:studentName,
-          dateOfIssue:dateOfIssue,
-          dateOfReturn:dateOfReturn,
-          parentTelephone:parentTelephone,
-          reason:reason,
-          hasReturn:false,
-          house:house
-        }
-        fetch('/student/issue_exeat',{
-                method:'post',
-                "headers":{
-                    "Content-Type":"application/json"
+              const exeatData = {
+                studentName: studentName,
+                dateOfIssue: dateOfIssue,
+                dateOfReturn: dateOfReturn,
+                parentTelephone: parentTelephone,
+                reason: reason,
+                hasReturn: false,
+                house: house
+              }
+              fetch('/student/issue_exeat', {
+                method: 'post',
+                "headers": {
+                  "Content-Type": "application/json"
                 },
-                body:JSON.stringify(exeatData)
-            }).then((response)=>{response.json()}).then((finalres)=>{
+                body: JSON.stringify(exeatData)
+              }).then((response) => { response.json() }).then((finalres) => {
                 Swal.fire(
-                    'Success',
-                    'Exeat issued successfully',
-                    'success'
+                  'Success',
+                  'Exeat issued successfully',
+                  'success'
                 );
-    
-            }).catch((error)=>{
+
+              }).catch((error) => {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                    footer: '<a href="">Why do I have this issue?</a>'
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+                  footer: '<a href="">Why do I have this issue?</a>'
                 })
+              })
             })
-      })
-    </script>
+          </script>
   </body>
+
 </html>
